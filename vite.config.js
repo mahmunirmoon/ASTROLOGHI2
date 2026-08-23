@@ -3,19 +3,20 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 /**
- * GitHub Pages base-path configuration.
+ * GitHub Pages deployment — https://mahmunirmoon.github.io/ASTROLOGHI2/
  *
- * The site is deployed to https://mahmunirmoon.github.io/ASTROLOGHI2/
- * - When built on GitHub Actions (automated deployment) the base is exactly
- *   "/ASTROLOGHI2/" so all CSS/JS/asset/WASM URLs are absolute under the repo path.
- * - For manual local builds the base is relative ("./") which also resolves
- *   correctly when the dist folder is served from the /ASTROLOGHI2/ sub-path
- *   (and keeps local preview/dev serving working from any root).
+ * base is RELATIVE ("./") on purpose:
+ *  - On GitHub Pages every asset resolves against the page URL, so the site
+ *    loads correctly from /ASTROLOGHI2/ (CSS, JS, images and the Swiss
+ *    Ephemeris WASM binary all resolve under the repository path).
+ *  - The same build also works when dist/ is previewed locally or served from
+ *    any other path — an absolute base ("/ASTROLOGHI2/") breaks those cases
+ *    and produces the blank/white page.
+ *  - Routing uses HashRouter, which is fully compatible with relative base
+ *    and needs no 404.html rewrite tricks on GitHub Pages.
  */
-const repoBase = "/ASTROLOGHI2/";
-
 export default defineConfig({
-  base: repoBase,
+  base: "./",
   plugins: [react(), tailwindcss()],
   server: {
     host: "0.0.0.0",

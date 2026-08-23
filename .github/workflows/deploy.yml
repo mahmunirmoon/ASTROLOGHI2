@@ -1,11 +1,9 @@
-# Automatic deployment of AstroProfile AI to GitHub Pages
-# Target: https://mahmunirmoon.github.io/ASTROLOGHI2/
+# AstroProfile AI — GitHub Pages deployment
+# Builds the Vite app and publishes dist/ to GitHub Pages.
+# Site URL: https://mahmunirmoon.github.io/ASTROLOGHI2/
 #
-# One-time repository setup (Settings → Pages):
-#   Source: GitHub Actions
-#
-# This workflow builds with Vite (base = /ASTROLOGHI2/ via GITHUB_ACTIONS env)
-# and publishes the dist/ folder to GitHub Pages.
+# One-time repo setup (Settings tab):
+#   Settings → Pages → Build and deployment → Source: "GitHub Actions"
 
 name: Deploy to GitHub Pages
 
@@ -27,10 +25,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -39,11 +37,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build (base=/ASTROLOGHI2/)
+      - name: Build (relative base — served from /ASTROLOGHI2/)
         run: npm run build
-        env:
-          # Explicitly set by the runner, kept here for clarity
-          GITHUB_ACTIONS: true
+
+      - name: Disable Jekyll processing
+        run: touch ./dist/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -51,14 +49,14 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: ./dist
 
   deploy:
-    needs: build
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
