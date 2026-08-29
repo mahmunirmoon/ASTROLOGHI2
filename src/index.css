@@ -192,3 +192,139 @@ body {
     border-radius: 4px;
   }
 }
+
+/* ---------- cinematic route transition ---------- */
+@keyframes routeIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+.animate-route-in {
+  animation: routeIn 0.65s cubic-bezier(0.22, 0.9, 0.35, 1) both;
+}
+
+/* ---------- breathing cosmic halos ---------- */
+@keyframes nebulaBreathe {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.14);
+    opacity: 1;
+  }
+}
+.nebula-breathe {
+  animation: nebulaBreathe 26s ease-in-out infinite;
+}
+@keyframes nebulaBreatheSlow {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.12) rotate(8deg);
+    opacity: 1;
+  }
+}
+.nebula-breathe-slow {
+  animation: nebulaBreatheSlow 34s ease-in-out infinite;
+}
+
+/* ---------- music equalizer bars ---------- */
+@keyframes eqBounce {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.eq-bar {
+  transform-origin: bottom;
+  animation: eqBounce 0.9s ease-in-out infinite;
+}
+
+/* ---------- volume slider ---------- */
+.music-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.7), rgba(153, 135, 219, 0.5));
+  outline: none;
+  cursor: pointer;
+}
+.music-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f0d98f;
+  border: 2px solid #0a102c;
+  box-shadow: 0 0 10px rgba(230, 197, 106, 0.8);
+  transition: transform 0.15s ease;
+}
+.music-range::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+.music-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f0d98f;
+  border: 2px solid #0a102c;
+  box-shadow: 0 0 10px rgba(230, 197, 106, 0.8);
+}
+.music-range:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ---------- living card glow ---------- */
+.glow-lift {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 0.9, 0.35, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+.glow-lift:hover {
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.18),
+    0 22px 60px -18px rgba(3, 5, 18, 0.95),
+    0 0 46px -6px rgba(212, 175, 55, 0.22);
+}
+
+/* ---------- gentle float for orbit dots on buttons ---------- */
+@keyframes pulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgba(212, 175, 55, 0);
+  }
+}
+.pulse-ring {
+  animation: pulseRing 2.4s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-route-in,
+  .nebula-breathe,
+  .nebula-breathe-slow,
+  .eq-bar,
+  .pulse-ring {
+    animation: none;
+  }
+}

@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ProfileProvider, useProfile } from "./context/ProfileContext";
+import { MusicProvider } from "./context/MusicContext";
 import Starfield from "./components/Starfield";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import MusicPlayer from "./components/MusicPlayer";
 import HomePage from "./pages/HomePage";
 import WizardPage from "./pages/WizardPage";
 import DashboardPage from "./pages/DashboardPage";
@@ -15,6 +17,22 @@ const ScrollToTop = () => {
     window.scrollTo({ top: 0 });
   }, [pathname]);
   return null;
+};
+
+/** Cinematic fade/blur-in on every route change */
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  return (
+    <div key={location.pathname} className="animate-route-in">
+      <Routes location={location}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/wizard" element={<WizardPage />} />
+        <Route path="/profile" element={<DashboardPage />} />
+        <Route path="/compatibility" element={<CompatibilityPage />} />
+        <Route path="*" element={<HomePage />} />
+      </Routes>
+    </div>
+  );
 };
 
 const Toast = () => {
@@ -40,22 +58,19 @@ const Toast = () => {
 const App = () => (
   <ProfileProvider>
     <HashRouter>
-      <ScrollToTop />
-      <Starfield />
-      <div className="relative flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/wizard" element={<WizardPage />} />
-            <Route path="/profile" element={<DashboardPage />} />
-            <Route path="/compatibility" element={<CompatibilityPage />} />
-            <Route path="*" element={<HomePage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-      <Toast />
+      <MusicProvider>
+        <ScrollToTop />
+        <Starfield />
+        <div className="relative flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1">
+            <AnimatedRoutes />
+          </main>
+          <Footer />
+        </div>
+        <MusicPlayer />
+        <Toast />
+      </MusicProvider>
     </HashRouter>
   </ProfileProvider>
 );
