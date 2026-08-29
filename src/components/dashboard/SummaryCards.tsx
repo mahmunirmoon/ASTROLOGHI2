@@ -17,7 +17,7 @@ const SummaryCards = ({ profile }: { profile: AstrologyProfile }) => {
           return (
             <article
               key="asc"
-              className="glass group rounded-xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold-500/40"
+              className="glass glow-lift group rounded-xl p-5 hover:-translate-y-1 hover:border-gold-500/40"
             >
               <div className="flex items-center justify-between">
                 <span className="flex h-11 w-11 items-center justify-center rounded-lg border border-gold-500/40 bg-gold-500/10 text-xl text-gold-300">
@@ -53,7 +53,7 @@ const SummaryCards = ({ profile }: { profile: AstrologyProfile }) => {
         return (
           <article
             key={key}
-            className="glass group rounded-xl p-5 transition-all duration-300 hover:-translate-y-1"
+            className="glass glow-lift group rounded-xl p-5 hover:-translate-y-1"
             style={{ animationDelay: `${idx * 60}ms` }}
           >
             <div className="flex items-center justify-between">
