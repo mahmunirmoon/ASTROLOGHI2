@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Sparkles, CircleDot, BrainCircuit, Hash, ArrowLeft, BookOpen, Orbit, Compass } from "lucide-react";
 import Reveal from "../components/Reveal";
+import AboutCreator from "../components/AboutCreator";
 import { ZODIAC_SIGNS, ELEMENT_FA } from "../data/zodiac";
 import { PLANETS } from "../data/planets";
 import { APP_CONFIG } from "../lib/config";
@@ -78,6 +80,21 @@ const FEATURES = [
 ];
 
 const HomePage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  /* Smooth-scroll to «درباره سازنده» when arriving from the global menu on another page */
+  useEffect(() => {
+    const state = location.state as { scrollTo?: string } | null;
+    if (state?.scrollTo === "about-creator") {
+      const t = setTimeout(() => {
+        document.getElementById("about-creator")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 150);
+      navigate("/", { replace: true });
+      return () => clearTimeout(t);
+    }
+  }, [location.state, navigate]);
+
   return (
     <div className="relative">
       {/* ============ HERO ============ */}
@@ -260,6 +277,9 @@ const HomePage = () => {
           </div>
         </Reveal>
       </section>
+
+      {/* ============ ABOUT THE CREATOR ============ */}
+      <AboutCreator />
     </div>
   );
 };

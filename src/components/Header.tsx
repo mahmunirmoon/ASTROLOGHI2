@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Sparkles } from "lucide-react";
 import { useProfile } from "../context/ProfileContext";
 
@@ -19,6 +19,18 @@ const StarMark = () => (
 const Header = () => {
   const [open, setOpen] = useState(false);
   const { hasProfile } = useProfile();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  /* «درباره من» — smooth-scroll to the creator section on the home page */
+  const goAbout = () => {
+    setOpen(false);
+    if (location.pathname === "/") {
+      document.getElementById("about-creator")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      navigate("/", { state: { scrollTo: "about-creator" } });
+    }
+  };
 
   const links = [
     { to: "/", label: "خانه" },
@@ -49,6 +61,12 @@ const Header = () => {
               {l.label}
             </NavLink>
           ))}
+          <button
+            onClick={goAbout}
+            className="rounded-md px-3 py-2 text-sm font-medium text-ink-400 transition-colors hover:text-ink-50"
+          >
+            درباره من
+          </button>
           <Link to="/wizard" className="btn-gold !px-4 !py-2 text-xs">
             <Sparkles className="h-3.5 w-3.5" />
             شروع تحلیل
@@ -86,6 +104,12 @@ const Header = () => {
                 {l.label}
               </NavLink>
             ))}
+            <button
+              onClick={goAbout}
+              className="rounded-lg px-4 py-3 text-right text-sm font-medium text-ink-200 transition-colors hover:bg-night-800"
+            >
+              درباره من
+            </button>
             <Link
               to="/wizard"
               className="btn-gold mt-2"
