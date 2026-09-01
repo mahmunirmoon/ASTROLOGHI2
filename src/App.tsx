@@ -5,7 +5,6 @@ import { MusicProvider } from "./context/MusicContext";
 import Starfield from "./components/Starfield";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import MusicPlayer from "./components/MusicPlayer";
 import HomePage from "./pages/HomePage";
 import WizardPage from "./pages/WizardPage";
 import DashboardPage from "./pages/DashboardPage";
@@ -68,7 +67,6 @@ const App = () => (
           </main>
           <Footer />
         </div>
-        <MusicPlayer />
         <Toast />
       </MusicProvider>
     </HashRouter>
