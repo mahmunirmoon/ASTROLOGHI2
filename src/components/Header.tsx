@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Sparkles } from "lucide-react";
 import { useProfile } from "../context/ProfileContext";
+import MusicPlayer from "./MusicPlayer";
 
 const StarMark = () => (
   <svg viewBox="0 0 40 40" className="h-9 w-9" aria-hidden="true">
@@ -67,6 +68,7 @@ const Header = () => {
           >
             درباره من
           </button>
+          <MusicPlayer />
           <Link to="/wizard" className="btn-gold !px-4 !py-2 text-xs">
             <Sparkles className="h-3.5 w-3.5" />
             شروع تحلیل
@@ -110,6 +112,7 @@ const Header = () => {
             >
               درباره من
             </button>
+            <MusicPlayer mobile />
             <Link
               to="/wizard"
               className="btn-gold mt-2"
