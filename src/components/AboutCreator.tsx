@@ -1,4 +1,6 @@
+import { Music4, Pause, Phone, Play, Volume2, VolumeX } from "lucide-react";
 import Reveal from "./Reveal";
+import { useMusic } from "../context/MusicContext";
 
 /** Icon: code brackets with a small star — programming meets astronomy */
 const CodeStarIcon = () => (
@@ -58,52 +60,117 @@ const Constellation = () => (
   </svg>
 );
 
-/**
- * «درباره سازنده» — closing signature panel of the landing page.
- * Reachable from the main menu via smooth scroll (#about-creator).
- */
-const AboutCreator = () => (
-  <section
-    id="about-creator"
-    className="mx-auto max-w-6xl scroll-mt-24 px-4 pb-4 pt-16 sm:px-6"
-    aria-labelledby="about-creator-title"
-  >
-    <Reveal>
-      <div className="glass group relative overflow-hidden rounded-xl p-8 transition-colors duration-300 hover:border-gold-500/35 sm:p-10">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-gold-500/60 to-transparent" />
-        <span
-          className="glyph pointer-events-none absolute -bottom-10 -left-4 select-none text-[160px] leading-none text-gold-500/[0.05]"
-          aria-hidden="true"
-        >
-          ☽
-        </span>
-        <Constellation />
+const AboutCreator = () => {
+  const { enabled, muted, volume, playing, currentTrack, toggleEnabled, toggleMuted, setVolume } = useMusic();
 
-        <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-14">
-          {/* Title block */}
-          <div className="shrink-0 lg:w-64">
-            <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg border border-gold-500/45 bg-gold-500/10 text-gold-300 transition-transform duration-300 group-hover:scale-110">
-              <CodeStarIcon />
-            </span>
-            <p className="font-latin mt-5 text-[10px] font-semibold tracking-[0.42em] text-gold-500/80">
-              ABOUT THE CREATOR
-            </p>
-            <h2 id="about-creator-title" className="font-display mt-2 text-2xl text-ink-50 sm:text-3xl">
-              درباره سازنده
-            </h2>
-            <div className="gold-line mt-4 w-16 transition-all duration-500 group-hover:w-28" />
+  return (
+    <section
+      id="about-creator"
+      className="mx-auto max-w-6xl scroll-mt-24 px-4 pb-4 pt-16 sm:px-6"
+      aria-labelledby="about-creator-title"
+    >
+      <Reveal>
+        <div className="glass group relative overflow-hidden rounded-xl p-8 transition-colors duration-300 hover:border-gold-500/35 sm:p-10">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-gold-500/60 to-transparent" />
+          <span
+            className="glyph pointer-events-none absolute -bottom-10 -left-4 select-none text-[160px] leading-none text-gold-500/[0.05]"
+            aria-hidden="true"
+          >
+            ☽
+          </span>
+          <Constellation />
+
+          <div className="relative grid gap-8 lg:grid-cols-[16rem_1fr] lg:items-start lg:gap-14">
+            <div className="shrink-0">
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg border border-gold-500/45 bg-gold-500/10 text-gold-300 transition-transform duration-300 group-hover:scale-110">
+                <CodeStarIcon />
+              </span>
+              <p className="font-latin mt-5 text-[10px] font-semibold tracking-[0.42em] text-gold-500/80">
+                ABOUT THE CREATOR
+              </p>
+              <h2 id="about-creator-title" className="font-display mt-2 text-2xl text-ink-50 sm:text-3xl">
+                درباره سازنده
+              </h2>
+              <div className="gold-line mt-4 w-16 transition-all duration-500 group-hover:w-28" />
+            </div>
+
+            <div className="space-y-6">
+              <p className="font-display text-2xl leading-[1.95] text-ink-100 sm:text-[27px] sm:leading-[1.9]">
+                این برنامه توسط <span className="text-gold-300 text-glow-gold">فاطمه</span> برنامه‌نویسی شده، از
+                دانش‌آموزان <span className="text-mystic-300">دکتر ماه منیر آقایی</span>، در{" "}
+                <span className="text-airx-400">آگوست ۲۰۲۶</span>.
+              </p>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <a
+                  href="tel:+971551544988"
+                  className="rounded-xl border border-gold-500/25 bg-gold-500/[0.06] p-4 transition-all hover:-translate-y-0.5 hover:border-gold-500/45 hover:bg-gold-500/[0.1]"
+                  aria-label="تماس با استاد"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold-500/35 bg-gold-500/10 text-gold-300">
+                      <Phone className="h-4.5 w-4.5" />
+                    </span>
+                    <div>
+                      <p className="text-xs text-ink-500">شماره تماس استاد</p>
+                      <p className="font-latin mt-1 text-sm font-semibold tracking-wide text-gold-200" dir="ltr">
+                        00971 55 154 4988
+                      </p>
+                    </div>
+                  </div>
+                </a>
+
+                <div className="rounded-xl border border-mystic-500/25 bg-mystic-500/[0.06] p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex min-w-0 items-center gap-3">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-mystic-500/35 bg-mystic-500/10 text-mystic-200">
+                        <Music4 className="h-4.5 w-4.5" />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-xs text-ink-500">موسیقی این بخش</p>
+                        <p className="mt-1 truncate text-sm font-semibold text-mystic-200">{currentTrack.titleFa}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={toggleMuted}
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-mystic-600/35 text-ink-300 transition-colors hover:text-ink-50"
+                        aria-label={muted ? "فعال‌سازی صدا" : "بی‌صدا کردن"}
+                      >
+                        {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={toggleEnabled}
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-gold-500/40 bg-gold-500/10 text-gold-300 transition-all hover:scale-105 hover:bg-gold-500/20"
+                        aria-label={enabled ? "توقف موسیقی" : "پخش موسیقی"}
+                      >
+                        {enabled && playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mt-3 flex items-center gap-3">
+                    <span className="text-[10px] text-ink-600">صدا</span>
+                    <input
+                      type="range"
+                      min={0}
+                      max={100}
+                      value={Math.round(volume * 100)}
+                      onChange={(e) => setVolume(Number(e.target.value) / 100)}
+                      className="music-range w-full"
+                      aria-label="بلندی صدای موسیقی درباره سازنده"
+                      disabled={muted}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
-          {/* Exact signature text */}
-          <p className="font-display text-2xl leading-[1.95] text-ink-100 sm:text-[27px] sm:leading-[1.9]">
-            این برنامه توسط <span className="text-gold-300 text-glow-gold">فاطمه</span> برنامه‌نویسی شده، از
-            دانش‌آموزان <span className="text-mystic-300">دکتر ماه منیر آقایی</span>، در{" "}
-            <span className="text-airx-400">آگوست ۲۰۲۶</span>.
-          </p>
         </div>
-      </div>
-    </Reveal>
-  </section>
-);
+      </Reveal>
+    </section>
+  );
+};
 
 export default AboutCreator;
