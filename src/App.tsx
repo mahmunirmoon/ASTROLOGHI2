@@ -5,10 +5,12 @@ import { MusicProvider } from "./context/MusicContext";
 import Starfield from "./components/Starfield";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import MusicPlayer from "./components/MusicPlayer";
 import HomePage from "./pages/HomePage";
 import WizardPage from "./pages/WizardPage";
 import DashboardPage from "./pages/DashboardPage";
 import CompatibilityPage from "./pages/CompatibilityPage";
+import HelpPage from "./pages/HelpPage";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -28,6 +30,7 @@ const AnimatedRoutes = () => {
         <Route path="/wizard" element={<WizardPage />} />
         <Route path="/profile" element={<DashboardPage />} />
         <Route path="/compatibility" element={<CompatibilityPage />} />
+        <Route path="/help" element={<HelpPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
     </div>
@@ -67,6 +70,7 @@ const App = () => (
           </main>
           <Footer />
         </div>
+        <MusicPlayer />
         <Toast />
       </MusicProvider>
     </HashRouter>

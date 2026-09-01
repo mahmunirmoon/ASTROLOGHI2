@@ -38,6 +38,7 @@ const Header = () => {
     { to: "/wizard", label: "چارت تولد" },
     ...(hasProfile ? [{ to: "/profile", label: "پروفایل من" }] : []),
     { to: "/compatibility", label: "سازگاری" },
+    { to: "/help", label: "راهنما" },
   ];
 
   const navCls = ({ isActive }: { isActive: boolean }) =>
